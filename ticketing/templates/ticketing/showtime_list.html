@@ -1,0 +1,20 @@
+{% extends "ticketing/base_page.html" %}
+{% block title %}
+    <title>showtime list</title>
+{% endblock %}
+{% block main_content %}
+{% if showtimes %}
+<p> there are {{showtimes.length}} showtime(s)</p>
+    <ul>
+    {% for showtime in showtimes %}
+        <li>
+        <a href="{% url "ticketing:showtime_details" showtime_id=showtime.id %}">
+            {{ showtime }}
+        </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+<p> no showtimes to show </p>
+{% endif %}
+{% endblock %}

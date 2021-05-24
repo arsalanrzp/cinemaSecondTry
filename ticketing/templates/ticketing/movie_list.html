@@ -1,0 +1,27 @@
+{% extends "ticketing/base_page.html" %}
+{% block title %}
+    <title>movie list</title>
+{% endblock %}
+{% block main_content %}
+<h1>
+    ticketing sale system
+</h1>
+<h2>
+    list
+</h2>
+<a href="{% url "ticketing:movie_list" %}" > refresh </a>
+<br>
+<a href="{% url "ticketing:cinema_list" %}" > cinema_list </a>
+{% if movies %}
+<p> there are {{ count }} movie(s)</p>
+    <ul>
+    {% for movie in movies %}
+        <li>
+        <a href="{% url "ticketing:movie_details" movie_id=movie.id %}">
+            {{ movie }}
+        </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

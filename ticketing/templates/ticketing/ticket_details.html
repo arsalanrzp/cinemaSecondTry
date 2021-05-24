@@ -1,0 +1,11 @@
+{% extends "ticketing/base_page.html" %}
+{% block title %}
+    <title> ticket details</title>
+{% endblock %}
+
+{% block main_content %}
+<h1>{{ ticket.costumer }}</h1>
+<h2>{{ticket.sans}}</h2>
+<h3>{{ticket.seat_count}}</h3>
+<h4>{{ticket.order_time}}</h4>
+{% endblock %}

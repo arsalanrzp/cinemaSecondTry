@@ -1,0 +1,14 @@
+{% extends "ticketing/base_page.html" %}
+{% block title %}
+<title>{{ cinema.name }}</title>
+{% endblock %}
+
+{% block main_content %}
+<h1>{{ cinema.name }}</h1>
+<h2>{{ cinema.address }}</h2>
+<h3>{{ cinema.capacity }}</h3>
+<div>
+    <img src="{{ cinema.poster.url }}">
+</div>
+{% endblock %}
+

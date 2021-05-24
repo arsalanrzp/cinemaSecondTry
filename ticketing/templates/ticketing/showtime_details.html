@@ -1,0 +1,26 @@
+{% extends "ticketing/base_page.html" %}
+{% block title %}
+    <title>showtime details</title>
+{% endblock %}
+
+{% block main_content %}
+<div id="details">
+  <h3>fullName: {{user.get_full_name}}</h1>
+  <h4>balance: {{user.profile.balance}}</h4>
+  <h1>movie: {{ showtime.movie }}</h1>
+  <h2>cinema: {{ showtime.cinema }}</h2>
+  <h3>startDate: {{ showtime.startDate }}</h3>
+  <h4>price: {{ showtime.price }}</h4>
+  <h4>free seats: {{ showtime.freeSeats }}</h4>
+</div>
+<div id="purchase">
+  <form method="post" action="" >
+    {%csrf_token%}
+    <div id="form_group">
+      <p> purchase a ticket </p>
+      <input type="number" name="seat_count" placeholder="seat_count">
+      <button type="submit"></button>
+    </div>
+  </form>
+</div>
+{% endblock %}

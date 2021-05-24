@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cinema list</title>
+    <link type="text/css" rel="stylesheet" href="{% static "ticketing/main.css" %}">
+</head>
+<body>
+<h1>
+    ticketing sale system
+</h1>
+<h2>
+    list
+</h2>
+<a href="{% url "ticketing:cinema_list" %}" > refresh </a>
+<br>
+<a href="{% url "ticketing:movie_list" %}" > movies_list </a>
+{% if cinemas %}
+<p> there are {{ count }} cinema(s)</p>
+    <ul>
+    {% for cinema in cinemas %}
+{#        <li>#}
+{#        <a href="{% url "ticketing:cinema_details" cinema_id=cinema.id %}">#}
+{#            {{ cinema }}#}
+{#        </a>#}
+{#        </li>#}
+        <div class="container bg-light rounded">
+    <div class="h4 font-weight-bold text-center py-3">Explore more</div>
+    <div class="row">
+        <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+            <div class="box bg-white">
+                <div class="d-flex align-items-center">
+                    <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pista"> <img src="https://icon-library.com/images/icon-ticket/icon-ticket-16.jpg" alt=""> </div>
+                    <div class="d-flex flex-column"> <b>{{ cinema }}</b> <a href="#">
+                            <p class="text-muted">5 classes</p>
+                        </a> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endfor %}
+    </ul>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends "ticketing/base_page.html" %}
+{% block title %}
+    <title>ticket list</title>
+{% endblock %}
+{% block main_content %}
+{% if tickets %}
+<p> there are {{tickets.length}} tickets(s)</p>
+    <ul>
+    {% for ticket in tickets %}
+        <li>
+        <a href="{% url "ticketing:ticket_details" ticket_id=ticket.id %}">
+            {{ ticket }}
+        </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
