@@ -5,15 +5,23 @@
 {% block main_content %}
 {% if showtimes %}
 <p> there are {{showtimes.length}} showtime(s)</p>
-    <ul>
-    {% for showtime in showtimes %}
-        <li>
-        <a href="{% url "ticketing:showtime_details" showtime_id=showtime.id %}">
-            {{ showtime }}
-        </a>
-        </li>
-    {% endfor %}
-    </ul>
+    {%if showtimes%}
+    <div class = "form">
+        <form method = "get" action = "" name="searchForm" placeholder="enter movie name">
+          {{search_form}}
+            <button type = "submit"> search </button>
+        </form>
+    </div>
+        <ul>
+        {% for showtime in showtimes %}
+            <li>
+            <a href="{% url "ticketing:showtime_details" showtime_id=showtime.id %}">
+                {{ showtime }}
+            </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {%endif%}
 {% else %}
 <p> no showtimes to show </p>
 {% endif %}

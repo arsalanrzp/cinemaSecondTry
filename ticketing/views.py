@@ -3,6 +3,7 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from .forms import ShowTimeSearchForms
 
 # Create your views here.
 from ticketing.models import Movie, Cinema, Ticket, ShowTime
@@ -76,7 +77,7 @@ def showtime_details(request, showtime_id):
             return render(request, 'ticketing/error_for_reserve.html', context)
         else:
             ticket = Ticket.objects.create(sans=showtime, costumer=user.profile, seat_count=seat_count)
-            return HttpResponseRedirect("/ticketing/ticket/details/{}".format(ticket.id))
+            return HttpResponseRedirect(reverse('ticketing:ticket_details', kwargs={'ticket_id':ticket.id}))
     else:
         showtime = get_object_or_404(ShowTime, pk=showtime_id)
         context = {'showtime' : showtime}
@@ -85,9 +86,15 @@ def showtime_details(request, showtime_id):
 
 @login_required
 def showtime_list(request):
-    showtimes = ShowTime.objects.all()
+    search_form = ShowTimeSearchForms(request.GET)
+    if search_form.is_valid() :
+        movie_name = search_form.cleaned_data['movie_name']
+        showtimes = ShowTime.objects.filter(movie__name__contains=movie_name)
+    else:
+        showtimes = ShowTime.objects.all()
     context = {
-    'showtimes': showtimes
+    'showtimes': showtimes,
+    'search_form': search_form
     }
     return render(request, 'ticketing/showtime_list.html', context)
 
