@@ -69,11 +69,11 @@ class ShowTime(models.Model):
         assert person.profile.spend(seat_count * self.price), 'you have not enough credit'
         self.freeSeats -= seat_count
         self.saleableSeats -= seat_count
-        self.save()
         if self.saleableSeats == 0:
             self.status = 4
         elif self.freeSeats == 0:
             self.status = 3
+        self.save()
         return
 
 

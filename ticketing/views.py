@@ -69,12 +69,14 @@ def showtime_details(request, showtime_id):
         showtime = get_object_or_404(ShowTime, pk=showtime_id)
         user = request.user
         seat_count = int(request.POST['seat_count'])
-        # assert showtime.status == 2
-        # assert request.user.profile.spend(seat_count * (showtime.price))
-        # assert showtime.freeSeats >= seat_count
-        showtime.reserve_seats(seat_count, request.user)
-        ticket = Ticket.objects.create(sans=showtime, costumer=user.profile, seat_count=seat_count)
-        return HttpResponseRedirect("/ticketing/ticket/details/{}".format(ticket.id))
+        try:
+            showtime.reserve_seats(seat_count, request.user)
+        except Exception as e:
+            context = {'error' : e}
+            return render(request, 'ticketing/error_for_reserve.html', context)
+        else:
+            ticket = Ticket.objects.create(sans=showtime, costumer=user.profile, seat_count=seat_count)
+            return HttpResponseRedirect("/ticketing/ticket/details/{}".format(ticket.id))
     else:
         showtime = get_object_or_404(ShowTime, pk=showtime_id)
         context = {'showtime' : showtime}

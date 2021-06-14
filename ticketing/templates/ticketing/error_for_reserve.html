@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    <title>
+      you've got an error
+    </title>
+    {% endblock %}
+</head>
+<body>
+  {% block main_content %}
+  {{error}}
+  {% endblock %}
+</body>
+</html>
