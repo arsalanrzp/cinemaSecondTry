@@ -87,11 +87,18 @@ def showtime_details(request, showtime_id):
 @login_required
 def showtime_list(request):
     search_form = ShowTimeSearchForms(request.GET)
+    showtimes = ShowTime.objects.all()
     if search_form.is_valid() :
-        movie_name = search_form.cleaned_data['movie_name']
-        showtimes = ShowTime.objects.filter(movie__name__contains=movie_name)
-    else:
-        showtimes = ShowTime.objects.all()
+        showtimes = showtimes.filter(movie__name__contains=search_form.cleaned_data['movie_name'])
+        if search_form.cleaned_data['available_sales']:
+            showtimes = showtimes.filter(status=2)
+        if search_form.cleaned_data['cinema'] is not None:
+            showtimes = showtimes.filter(cinema=search_form.cleaned_data['cinema'])
+        minprice, maxprice = search_form.get_price_boundries()
+        if minprice is not None:
+            showtimes = showtimes.filter(price__gte=minprice)
+        if maxprice is not None:
+            showtimes = showtimes.filter(price__lte=maxprice)
     context = {
     'showtimes': showtimes,
     'search_form': search_form
