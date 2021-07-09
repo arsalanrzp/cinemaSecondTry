@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .forms import UserRegisterForms
-
+from django.contrib import messages
 # Create your views here.
 from django.urls import reverse
 
@@ -19,6 +19,7 @@ def login_view(request):
             raise Http404()
         else:
             login(request, user)
+            messages.success(request, f'successfully logged in !!')
             return HttpResponseRedirect(reverse('ticketing:showtime_list'))
 
     else:

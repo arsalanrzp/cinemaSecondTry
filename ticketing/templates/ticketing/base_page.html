@@ -7,6 +7,11 @@
     {% endblock %}
 </head>
 <body>
+  {% if messages %}
+    {% for message in messages%}
+        {{message}}
+    {% endfor %}
+  {% endif %}
   {% block main_content %}
   {% endblock %}
 </body>
