@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from .forms import UserRegisterForms
 
 # Create your views here.
 from django.urls import reverse
@@ -40,3 +41,15 @@ def logout_view(request):
 def profile_details(request):
     profile = request.user.profile
     return HttpResponse(profile)
+
+def registerform(request):
+    if request.method == 'POST':
+        form = UserRegisterForms(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = UserRegisterForms()
+    context = {
+    'form': form
+    }
+    return render(request, 'accounts/register.html', context)

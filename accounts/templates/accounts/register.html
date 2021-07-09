@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load crispy_forms_tags%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sign in </title>
+</head>
+<body>
+<center>
+    <div id="form-container">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div id="form-group">
+                <div id="login-title">
+                create a new account
+                </div>
+                {{form | crispy}}
+                <button type="submit"></button>
+            </div>
+        </form>
+        <a href='{% url 'accounts:login' %}'> login </a>
+    </div>
+</center>
+
+</body>
+</html>

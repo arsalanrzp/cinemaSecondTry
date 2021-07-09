@@ -1,4 +1,5 @@
 {% extends "ticketing/base_page.html" %}
+{% load crispy_forms_tags %}
 {% block title %}
     <title>showtime list</title>
 {% endblock %}
@@ -8,7 +9,7 @@
     {%if showtimes%}
     <div class = "form">
         <form method = "get" action = "" name="searchForm" placeholder="enter movie name">
-          {{search_form}}
+          {{search_form | crispy }}
             <button type = "submit"> search </button>
         </form>
     </div>
