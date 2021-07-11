@@ -3,7 +3,7 @@ from audioop import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import UserRegisterForms
 from django.contrib import messages
 # Create your views here.
@@ -47,7 +47,11 @@ def registerform(request):
     if request.method == 'POST':
         form = UserRegisterForms(request.POST)
         if form.is_valid():
-            form.save()
+            newuser = form.save(commit=False)
+            newuser.set_password(newuser.password)
+            # newuser.is_staff = True
+            newuser.save()
+
     else:
         form = UserRegisterForms()
     context = {
