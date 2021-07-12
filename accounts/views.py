@@ -10,24 +10,24 @@ from django.contrib import messages
 from django.urls import reverse
 
 
-def login_view(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is None:
-            raise Http404()
-        else:
-            login(request, user)
-            messages.success(request, f'successfully logged in !!')
-            return HttpResponseRedirect(reverse('ticketing:showtime_list'))
-
-    else:
-        if request.user.is_authenticated:
-            response = request.user.get_full_name()
-            return HttpResponse(response + ", you're already logged in")
-        else:
-            return render(request, 'accounts/loginpage.html', {})
+# def login_view(request):
+#     if request.method == "POST":
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = authenticate(request, username=username, password=password)
+#         if user is None:
+#             raise Http404()
+#         else:
+#             login(request, user)
+#             messages.success(request, f'successfully logged in !!')
+#             return HttpResponseRedirect(reverse('ticketing:showtime_list'))
+#
+#     else:
+#         if request.user.is_authenticated:
+#             response = request.user.get_full_name()
+#             return HttpResponse(response + ", you're already logged in")
+#         else:
+#             return render(request, 'accounts/loginpage.html', {})
 
 
 def logout_view(request):

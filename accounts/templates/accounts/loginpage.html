@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,18 +10,18 @@
     <div id="form-container">
         <form action="" method="post">
             {% csrf_token %}
-            <div id="form-group">
+            {{form | crispy}}
+            <!--<div id="form-group">
                 <div id="login-title">
                 login to your account
                 </div>
                 <br>
-                <!--<label id="username">username:</label>-->
                 <input id = "username" type="text" name="username" placeholder="username">
                 <br>
-                <!--<label id="password">password:</label>-->
                 <input id = "password" type="password" name="password" placeholder="password">
                 <button type="submit"></button>
-            </div>
+            </div> -->
+            <button type="submit">Login</button>
         </form>
     </div>
     <a href = '{% url 'accounts:signin' %}'> sigin </a>
