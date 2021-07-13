@@ -6,4 +6,4 @@ class AccountsConfig(AppConfig):
 
     def ready(self):
         import accounts.views
-
+        import accounts.signals
